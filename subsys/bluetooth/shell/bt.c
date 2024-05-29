@@ -2898,8 +2898,13 @@ static int cmd_set_path_loss_reporting_parameters(const struct shell *sh, size_t
 		.low_hysteresis = str_to_uint8_t(argv[4]),
 		.min_time_spent = str_to_uint8_t(argv[5]),
 	};
+
+	shell_fprintf(ctx_shell, SHELL_INFO, "using params\nhigh: %d +- %d\nlow: %d +- %d\ndwell: %d\n", 
+					params.high_threshold, params.high_hysteresis, params.low_threshold, params.low_hysteresis,
+					params.min_time_spent);
 	int err = bt_conn_le_set_path_loss_monitoring_parameters(default_conn,
 								&params);
+	shell_fprintf(ctx_shell, SHELL_INFO, "return code: %d\n", err);
 	return err;
 }
 
@@ -4613,7 +4618,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(bt_cmds,
 	SHELL_CMD_ARG(read-local-tx-power, NULL, HELP_NONE, cmd_read_local_tx_power, 2, 0),
 	SHELL_CMD_ARG(set-power-report-enable, NULL, HELP_NONE, cmd_set_power_report_enable, 3, 0),
 #endif
-#if defined(CONFIG_BT_CTLR_LE_PATH_LOSS_MONITORING)
+#if defined(CONFIG_BT_CTLR_LE_PATH_LOSS_MONITORING_SUPPORT)
 	SHELL_CMD_ARG(path-loss-monitoring-set-params, NULL,
 			"[high threshold]" "[high hysteresis]" 
 	        "[low threshold]" "[low hysteresis]" "[dwell time]",

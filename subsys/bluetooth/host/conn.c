@@ -2888,7 +2888,7 @@ int bt_conn_le_set_path_loss_monitoring_parameters(struct bt_conn *conn,
 	cp->low_hysteresis = params->low_hysteresis;
 	cp->min_time_spent = params->min_time_spent;
 
-	return bt_hci_cmd_send_sync(BT_HCI_OP_LE_SET_PATH_LOSS_REPORTING_PARAMETERS, buf, NULL);
+	return bt_hci_cmd_send_sync(BT_HCI_OP_LE_SET_PATH_LOSS_REPORTING_ENABLE, buf, NULL);
 }
 
 int bt_conn_le_set_path_loss_monitoring_enable(struct bt_conn *conn,
